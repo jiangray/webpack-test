@@ -1,21 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const base = require('./webpack.config.base')
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-  },
-  output: {
-    filename: 'index.[contenthash].js'
-  },
+  ...base,
+  mode: 'production',
   plugins: [
-    new HtmlWebpackPlugin({
-      title: "my webpack",
-      template: 'src/assets/index.html'
-    }),
+    ...base.plugins,
     new MiniCssExtractPlugin({
       filename: 'index.[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
@@ -35,7 +27,6 @@ module.exports = {
           },
           'css-loader',
         ],
-        // use: ['style-loader', 'css-loader']
       },
     ],
   },
